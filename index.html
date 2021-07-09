@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Aprenda JavaScript</title>
+    <style>
+        *{
+            margin: 0;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        body{
+            background-color: black;
+        }
+        .destacar{
+            font-weight: 900;
+        }
+        .btn{
+            color: black;
+        }
+        p{
+            font-size: 16pt;
+        }
+        textarea{
+            color: black;
+            font-size: 16pt;
+            width: 100%;
+        }
+        #conteudo-html-js{
+            float: right;
+            width: 95%;
+            height: 540px;
+        }
+        #area-aluno{
+            width: 100%;
+            float: left;
+        }
+        #conteiner{
+            width: 100%;
+        }
+        #dir, #esq{
+            width: 50%;
+        }
+
+        #dir{
+            float: left;
+        }
+        #esq{
+            float: right;
+        }
+        iframe{
+            background-color: white;
+        }
+        #passo1,#passo2,#passo3,#passo4{
+            display: none;
+        }
+        #instrucoes{
+            height: 250px;
+        }
+    </style>
+</head>
+<body>
+    <div id="instrucoes">
+        <div id="conteudo">
+            <div id="bem-vindo" class="passo">
+                <h1>Bem-vindo</h1>
+                <p>Bem-vindo ao <span class="destacar">Aprenda JavaScript</span>.</p>
+                <p>Sem enrrolação, vamos brincar um pouco com JavaScript.</p>
+            </div>
+            <div id="passo1" class="passo">
+                <p>1° passo  - vamos adicionar no HTML um evento na tag input 'ler' chamada 'escrever' que será executada quando o usuário digitar.</p>
+                <p>assim:<br> &lt;input id='ler' onkeydown="escrever()"&gt;</p>
+            </div>
+            <div id="passo2" class="passo">
+                <p>2° passo  - Agora na parte do JavaScript vamos criar a função 'escrever'.</p>
+                <p>assim:<br> function escrever(){<br><br>}</p>
+            </div>
+            <div id="passo3" class="passo">
+                <p>3° passo  - entre '{' e '}' vamos escrever o que ela vai fazer.</p>
+                <p>Ela vai pegar o que será escrito na caixa de texto(tag a input) e colocar no paragrafo(tag a p)</p>
+                <p>assim:<br>let txt = document.querySelector("#ler").value;<br>document.querySelector("p").innerText = txt;</p>
+            </div>
+            <div id="passo4" class="passo">
+                <p>4° passo  - Agora só clicar no botão 'Executar' e digitar qualque coisa no input.</p>
+            </div>
+        </div>
+        <div id="voltar-avancar">
+            <!-- <button class="btn">Voltar</button> -->
+            <button class="btn" id="avancar">Avançar</button>
+        </div>
+    </div>
+
+    <div id="area-aluno">
+        <div id="dir">
+            <div>
+                <p>
+                    <label for="area-html">HTML</label>
+                </p>
+                <textarea id="area-html" rows="10"></textarea>
+            </div>
+            <div>
+                <p>
+                    <label for="area-js">JavaScript</label>
+                </p>
+                <textarea id="area-js" rows="10"></textarea>
+            </div>
+        </div>
+        <div id="esq">
+            <p style="text-indent: 5%;">
+                <label for="conteudo-html-js">Resultado</label>
+            </p>
+            <iframe id="conteudo-html-js"></iframe>
+        </div>
+    </div>
+    <div>
+        <button id="executar" class="btn">Executar</button>
+    </div>
+    <script>
+        let passo = 0;
+        window.onload = ()=>{
+            const html = "<input id='ler'>\n<p></p>"
+            document.querySelector("#area-html").value = html;
+            ler();
+            document.querySelector("#executar").addEventListener('click', ()=>{
+                ler();    
+            });
+
+            document.querySelector("#avancar").addEventListener('click', ()=>{
+                passo++;
+                if(passo === 1){
+                    document.querySelector("#bem-vindo").style.display = "none";
+                    document.querySelector("#passo1").style.display = "block";
+                }
+                if(passo === 2){
+                    document.querySelector("#passo1").style.display = "none";
+                    document.querySelector("#passo2").style.display = "block";
+                }
+                if(passo === 3){
+                    document.querySelector("#passo2").style.display = "none";
+                    document.querySelector("#passo3").style.display = "block";
+                }
+                if(passo === 4){
+                    document.querySelector("#passo3").style.display = "none";
+                    document.querySelector("#passo4").style.display = "block";
+                }
+
+            });
+
+        }
+        function ler(){
+            const html = document.querySelector('#area-html').value;
+            const js = document.querySelector('#area-js').value;
+
+            document.querySelector("#conteudo-html-js").srcdoc= html + "<script>" + js + "<\/script>";
+        }
+
+    </script>
+</body>
+</html>
